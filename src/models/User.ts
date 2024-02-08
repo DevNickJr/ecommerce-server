@@ -1,5 +1,6 @@
 import {  DataTypes } from 'sequelize';
 import { sequelize } from "../utils/db"
+import { Order } from './Order';
 
 const User = sequelize.define('User', {
   // Model attributes are defined here
@@ -12,15 +13,15 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
-    validate: {
-        isEmail: true,
-    }
+    // validate: {
+    //     isEmail: true,
+    // }
   },
   password: {
     type: DataTypes.STRING(64),
-    validate: {
-      is: /^[0-9a-f]{64}$/i
-    },
+    // validate: {
+    //   is: /^[0-9a-f]{64}$/i
+    // },
     allowNull: false,
   },
   firstName: {
@@ -35,6 +36,10 @@ const User = sequelize.define('User', {
   // Other model options go here
 });
 
+
+
+// Movie.belongsToMany(Actor, { through: 'ActorMovies' });
+// Actor.belongsToMany(Movie, { through: 'ActorMovies' });
 // `sequelize.define` also returns the model
 console.log("For User: ", User === sequelize.models.User); // true
 

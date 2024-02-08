@@ -1,5 +1,6 @@
 import {  DataTypes } from 'sequelize';
 import { sequelize } from "../utils/db"
+import { User } from './User';
 
 const Order = sequelize.define('Order', {
   // Model attributes are defined here
@@ -8,16 +9,13 @@ const Order = sequelize.define('Order', {
     autoIncrement: true,
     primaryKey: true
   },
-  userId: {
-    type: DataTypes.INTEGER,
-  },
   status: {
     type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: "pending",
-    validate: {
-        isIn: [['pending', 'failed', 'success']],
-    }
+    // defaultValue: "pending",
+    // validate: {
+    //     isIn: [['pending', 'failed', 'success']],
+    // }
   },
 }, {
   // Other model options go here
