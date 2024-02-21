@@ -1,16 +1,14 @@
-import express, { Express, Request, Response, Application } from "express";
+import express, { Express, Request, Response, Application, Router } from "express";
 import dotenv from "dotenv";
 import { connect } from "./utils/db" 
 import { syncDB } from "./models";
+import routes from './routes'
 
 dotenv.config();
 
 const app: Application = express();
 const port = process.env.PORT || 3000;
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
-});
 
 const main = async () => {
   try {
@@ -27,3 +25,9 @@ const main = async () => {
 
 main()
 
+
+app.get("/", (req: Request, res: Response) => {
+  res.send("Express + TypeScript Server");
+});
+
+app.use('/api/v1', routes)
