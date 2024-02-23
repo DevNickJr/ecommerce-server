@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-const createToken = async ({id, role}: { id: string, role: string }) => {
+const createToken = async ({id, role}: { id: number, role: string }) => {
     console.log(process.env.JWT_SEC)
     const secret = process.env.JWT_SEC || ''
     return jwt.sign({id, role}, secret, { expiresIn: '1d' })}
