@@ -18,7 +18,7 @@ class CRUD {
         return data
     }
 
-    async getAll({limit=10, order=['createdAt', 'DESC'], page=1} = {}, query={}, populate='') {
+    async getAll({limit=10, order=['createdAt', 'DESC'], page=1} = {}, query={}) {
         // TODO: change pagination to cursor based
         console.log('herrr')
         console.log({limit, order, page})
@@ -55,8 +55,8 @@ class CRUD {
       };
     }
 
-    async getOne(id: string) {
-        const data = await this.model.findOne({ where: { id } })
+    async getOne(query: any) {
+        const data = await this.model.findOne(query)
         if (!data) throw new Error(`${this.serviceName} does not exist`)
         return data
     }
