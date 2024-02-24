@@ -3,7 +3,7 @@ import CRUD from "./crud"
 
 const { hashPassword, CustomError } = require('../utils')
 
-class UserService extends CRUD {
+class UserService extends CRUD<User> {
     async update(id: string, bd: any) {
         const { password, ...body } = bd
         if (password) {

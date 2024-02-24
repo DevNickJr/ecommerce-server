@@ -6,7 +6,7 @@ import hashPassword from '../utils/hashPassword'
 import CRUD from './crud'
 import bcrypt from "bcrypt"
 
-class AuthService extends CRUD {
+class AuthService extends CRUD<User> {
     static async signup(fields: IUser) {
 
         // if (!validator.isStrongPassword(password))
