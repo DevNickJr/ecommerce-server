@@ -7,7 +7,7 @@ import { CustomRequest } from '../interfaces'
 const JWT_SEC = process.env.JWT_SEC
 
 
-const errorMiddleware = async (req: CustomRequest, res: Response, next: NextFunction) => {
+const authenticate = async (req: CustomRequest, res: Response, next: NextFunction) => {
     
     try {
         const authorize = req.headers?.authorization || req.headers?.Authorization
@@ -38,4 +38,4 @@ const errorMiddleware = async (req: CustomRequest, res: Response, next: NextFunc
     }
 }
 
-export default errorMiddleware
+export default authenticate
