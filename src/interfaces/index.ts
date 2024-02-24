@@ -36,6 +36,14 @@ export interface IOrderProduct {
     price: number
 }
 
+export interface ICartItem {
+    // Some fields are optional when calling UserModel.create() or UserModel.build()
+    id?: number
+    UserId: number
+    ProductId: number
+    quantity: number
+}
+
 export interface IProduct {
     // Some fields are optional when calling UserModel.create() or UserModel.build()
     id?: number
