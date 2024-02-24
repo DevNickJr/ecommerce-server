@@ -1,22 +1,31 @@
 import { Model, ModelCtor, Optional } from "sequelize";
+import { MakeNullishOptional } from "sequelize/types/utils";
 
-// const CustomError = require('../utils/CustomError')
-
-
-class CRUD {
-    public model: ModelCtor<Model<any, any>>
+class CRUD<T extends Model> {
+    public model: ModelCtor<T>
     public serviceName: string;
 
     
-    constructor(model: ModelCtor<Model<any, any>>, serviceName: string) {
+    constructor(model: ModelCtor<T>, serviceName: string) {
         this.model = model
         this.serviceName = serviceName
     }
     
-    async create<T extends Optional<any, string> | undefined,>(fields: T) {
-        const data = await this.model.create(fields)
-        return data
+
+    async create(fields: MakeNullishOptional<T["_creationAttributes"]>): Promise<T> {
+        const data = await this.model.create(fields);
+        // const data = await this.model.create(fields);
+        return data;
     }
+
+
+    // async create<T extends MakeNullishOptional<T["_creationAttributes"]>,>(fields: T) {
+    //   // const data = await this.model.create(fields as unknown) as MakeNullishOptional<T["_creationAttributes"]>;
+    //   const data = await this.model.create(fields as MakeNullishOptional<T["_creationAttributes"]>);
+    // return data;
+    //     // const data = await this.model.create(fields)
+    //     return data
+    // }
 
     async getAll({limit=10, order=['createdAt', 'DESC'], page=1} = {}, query={}) {
         // TODO: change pagination to cursor based
@@ -37,22 +46,22 @@ class CRUD {
         //     this.model.findAll(query).countDocuments()
         // ])
 
-    if (pge * lmt < count) {
+      if (pge * lmt < count) {
+          return {
+            page: pge,
+            next: pge + 1,
+            limit: lmt,
+            data: rows,
+            total: count,
+          };
+        }
         return {
           page: pge,
-          next: pge + 1,
+          next: null,
           limit: lmt,
           data: rows,
           total: count,
         };
-      }
-      return {
-        page: pge,
-        next: null,
-        limit: lmt,
-        data: rows,
-        total: count,
-      };
     }
 
     async getOne(query: any) {
@@ -68,19 +77,25 @@ class CRUD {
     }
 
     async updateOne(id: string, body: any) {
-        const data = await this.model.update(body, {
-            where: {
-              id
-            }
-          });
-        if (!data) throw new Error(`${this.serviceName} does not exist`)
-        return data
+      const whereCondition: { [key: string]: any } = {};
+      whereCondition["id"] = id;
+      
+      const data = await this.model.update(body, {
+          where: {
+            whereCondition
+          }
+        });
+      if (!data) throw new Error(`${this.serviceName} does not exist`)
+      return data
     }
 
     async deleteOne(id: string) {
+      const whereCondition: { [key: string]: any } = {};
+      whereCondition["id"] = id;
+
         const data = await this.model.destroy({
             where: {
-              id
+              whereCondition
             }
         })
         if (!data) throw new Error(`${this.serviceName} does not exist`)
