@@ -7,7 +7,6 @@ class UserController {
         try {
             logger.log('info', 'Getting all users')
             const response = await UserService.getAll()
-            const responsew = await UserService.create({ email: "", password: "hash", lastName: "", firstName: ''})
             if (!response) return res.status(404).json({ message: 'No user found' })
             return res.status(200).json(response)
         } catch (error) {
