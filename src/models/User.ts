@@ -1,7 +1,7 @@
 import {  CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model, Optional } from 'sequelize';
 import { sequelize } from "../utils/db"
 import { Order } from './Order';
-import { IUser } from '../interfaces';
+import { Compulsory, IUser } from '../interfaces';
 
 
 
@@ -16,7 +16,7 @@ import { IUser } from '../interfaces';
 // } 
 
 
-class User extends Model<IUser, IUser> {}
+class User extends Model<Compulsory<IUser>, IUser> {}
 
 User.init({
   // Model attributes are defined here

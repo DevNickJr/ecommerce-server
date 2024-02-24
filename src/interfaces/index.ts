@@ -1,4 +1,8 @@
-import { CreationOptional } from "sequelize";
+import { Request } from "express"
+
+export type Compulsory<T> = {
+  [K in keyof T]-?: T[K];
+};
 
 export interface IUser {
     // Some fields are optional when calling UserModel.create() or UserModel.build()
@@ -8,4 +12,10 @@ export interface IUser {
     firstName: string
     lastName: string 
     role?: string
-  }
+}
+
+export interface CustomRequest extends Request {
+  user: {
+      id: number;
+  };
+}
