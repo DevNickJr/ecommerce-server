@@ -18,7 +18,7 @@ class AuthService extends CRUD<User> {
 
         const hash = await hashPassword(fields.password)
         
-        const newUser = (await User.create({ email: "", password: hash, lastName: "", firstName: '' })).toJSON()
+        const newUser = (await User.create({ ...fields, password: hash })).toJSON()
         if (!newUser) throw new Error('Failed to create User')
 
         const token = await createToken({ id: newUser.id!, role: newUser.role! })
