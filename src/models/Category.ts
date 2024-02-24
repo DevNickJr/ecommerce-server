@@ -1,7 +1,10 @@
-import {  DataTypes } from 'sequelize';
+import {  DataTypes, Model } from 'sequelize';
 import { sequelize } from "../utils/db"
+import { Compulsory, ICategory } from '../interfaces';
 
-const Category = sequelize.define('Category', {
+class Category extends Model<Compulsory<ICategory>, ICategory> {}
+
+Category.init({
   // Model attributes are defined here
   id: {
     type: DataTypes.INTEGER,
@@ -14,8 +17,9 @@ const Category = sequelize.define('Category', {
     unique: true
   },
 }, {
-  // Other model options go here
-});
+  sequelize, // We need to pass the connection instance
+  modelName: 'Category' // We need to choose the model name
+})
 
 // `sequelize.define` also returns the model
 console.log("For Category: ", Category === sequelize.models.Category); // true

@@ -1,7 +1,11 @@
-import {  DataTypes } from 'sequelize';
+import {  DataTypes, Model } from 'sequelize';
 import { sequelize } from "../utils/db"
+import { Compulsory, IProduct } from '../interfaces';
 
-const Product = sequelize.define('Product', {
+
+class Product extends Model<Compulsory<IProduct>, IProduct> {}
+
+Product.init({
   // Model attributes are defined here
   id: {
     type: DataTypes.INTEGER,
@@ -22,8 +26,10 @@ const Product = sequelize.define('Product', {
     allowNull: false,
   },
 }, {
-  // Other model options go here
-});
+  sequelize, // We need to pass the connection instance
+  modelName: 'Product' // We need to choose the model name
+})
+
 
 // `sequelize.define` also returns the model
 console.log("For Product: ", Product === sequelize.models.Product); // true
