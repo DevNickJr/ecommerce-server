@@ -6,7 +6,7 @@ import cors from 'cors'
 import { corsOptions } from '../configs/cors.config'
 
 
-module.exports = (app: Application) => {
+const preRouteMiddleWares = (app: Application) => {
     // middlewwares
 
     // app.options('*', cors())
@@ -18,3 +18,5 @@ module.exports = (app: Application) => {
     app.use(helmet()) // additional security layer by auto setting some important headers
     app.disable('x-powered-by') // remove powered by express header for security purposes
 }
+
+export default preRouteMiddleWares
