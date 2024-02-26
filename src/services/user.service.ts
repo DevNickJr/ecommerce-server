@@ -15,13 +15,14 @@ class UserService extends CRUD<User> {
         return data
     }
 
-    async findAllUsers({ order=undefined, limit=10, page=1 } = {}, query={}, populate='') {
+    async findAllUsers({ order=undefined, limit=10, page=1, query={} } = {}) {
         const pge = page || 1
         const data = await this.getAll({
             page: pge,
             limit,
-            order
-          }, query)
+            order,
+            query
+          })
         if (!data) throw new Error(`${this.serviceName} does not exist`)
         return data
     }

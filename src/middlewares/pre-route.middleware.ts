@@ -18,5 +18,4 @@ const preRouteMiddleWares = (app: Application) => {
     app.use(helmet()) // additional security layer by auto setting some important headers
     app.disable('x-powered-by') // remove powered by express header for security purposes
 }
-
 export default preRouteMiddleWares

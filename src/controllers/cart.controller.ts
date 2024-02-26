@@ -20,7 +20,7 @@ class CartController {
 
         logger.log('info', `Getting Cart ${id}`)
         try {
-            const response = await CartService.getOne(id)
+            const response = await CartService.getByPK(id)
             if (!response) return res.status(404).json({ message: 'Cart Not Found' })
 
             return res.status(200).json(response)

@@ -1,6 +1,6 @@
 import { Router } from "express"
 import authRoutes from './auth.route'
-// const userRoutes = require('./user')
+import userRoutes from './user.route'
 // const postRoutes = require('./post')
 // const commentRoutes = require('./comment')
 // const conversationRoutes = require('./conversation')
@@ -10,7 +10,7 @@ const router = Router()
 
 // routes
 router.use('/auth', authRoutes)
-// router.use('/users', userRoutes)
+router.use('/users', userRoutes)
 // router.use('/posts', postRoutes)
 // router.use('/posts/:postId/comments', commentRoutes)
 // router.use('/conversations', conversationRoutes)

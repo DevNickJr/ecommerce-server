@@ -20,7 +20,7 @@ class OrderController {
 
         logger.log('info', `Getting Order ${id}`)
         try {
-            const response = await OrderService.getOne(id)
+            const response = await OrderService.getByPK(id)
             if (!response) return res.status(404).json({ message: 'Order Not Found' })
 
             return res.status(200).json(response)

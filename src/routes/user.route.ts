@@ -21,9 +21,9 @@ router.use((req: Request, res: Response, next: NextFunction) => {
     return isCurrentUser(req as CustomRequest, res, next);
 });
 
-router.put('/:id', UserController.updateUser)
+router.patch('/:id', UserController.updateUser)
 
 router.delete('/:id', UserController.deleteUser)
 
 
-module.exports = router
+export default router

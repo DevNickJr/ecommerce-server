@@ -20,7 +20,7 @@ class CategoryController {
 
         logger.log('info', `Getting Category ${id}`)
         try {
-            const response = await CategoryService.getOne(id)
+            const response = await CategoryService.getByPK(id)
             if (!response) return res.status(404).json({ message: 'Category Not Found' })
 
             return res.status(200).json(response)

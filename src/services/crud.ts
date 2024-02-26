@@ -1,4 +1,4 @@
-import { Model, ModelCtor, Optional } from "sequelize";
+import { Attributes, Model, ModelCtor, Optional, Order, WhereOptions } from "sequelize";
 import { MakeNullishOptional } from "sequelize/types/utils";
 
 class CRUD<T extends Model> {
@@ -18,28 +18,16 @@ class CRUD<T extends Model> {
         return data;
     }
 
-
-    // async create<T extends MakeNullishOptional<T["_creationAttributes"]>,>(fields: T) {
-    //   // const data = await this.model.create(fields as unknown) as MakeNullishOptional<T["_creationAttributes"]>;
-    //   const data = await this.model.create(fields as MakeNullishOptional<T["_creationAttributes"]>);
-    // return data;
-    //     // const data = await this.model.create(fields)
-    //     return data
-    // }
-
-    async getAll({limit=10, order=['createdAt', 'DESC'], page=1} = {}, query={}) {
+    async getAll<T extends Model<any, any>,>({limit=10, order=[['createdAt', 'DESC']], page=1, query}: { limit?: number, page?: number, order?: Order, query?:  WhereOptions<Attributes<T>> | undefined } = {}) {
         // TODO: change pagination to cursor based
-        console.log('herrr')
-        console.log({limit, order, page})
         const lmt = limit > 0 && limit <50 ? Number(limit) : 20
-        const srt = order || { createdAt: -1 }
         const pge = page || 1
         const skp = Number(pge * lmt -  lmt) || 0
         const { count, rows } = await this.model.findAndCountAll({
             where: query,
             offset: skp,
             limit,
-            order
+            order: order
           });
         // const data = await Promise.all([
         //     this.model(query).order(srt).skip(skp).limit(lmt).populate(populate),

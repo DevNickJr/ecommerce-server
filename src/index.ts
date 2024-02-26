@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import { connect } from "./utils/db" 
 import { syncDB } from "./models";
 import routes from './routes'
+import preRouteMiddleWares from "./middlewares/pre-route.middleware";
+import errorMiddleware from "./middlewares/error.middleware";
 
 dotenv.config();
 
@@ -23,11 +25,15 @@ const main = async () => {
   }
 }
 
+
 main()
 
+preRouteMiddleWares(app)
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });
 
 app.use('/api/v1', routes)
+
+errorMiddleware(app)

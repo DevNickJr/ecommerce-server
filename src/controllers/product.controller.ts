@@ -20,7 +20,7 @@ class ProductController {
 
         logger.log('info', `Getting Product ${id}`)
         try {
-            const response = await ProductService.getOne(id)
+            const response = await ProductService.getByPK(id)
             if (!response) return res.status(404).json({ message: 'Product Not Found' })
 
             return res.status(200).json(response)

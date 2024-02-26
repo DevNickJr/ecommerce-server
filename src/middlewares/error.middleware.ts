@@ -11,7 +11,6 @@ const errorMiddleware = (app: Application) => {
     })
 
     // custom error handler && this will replace default express error response for security reasons
-
     app.use((err: CustomError, req: Request, res: Response, next: NextFunction) => {
         const status = err.status || 500
         const message = err.message || err
