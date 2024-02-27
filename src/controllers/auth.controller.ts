@@ -5,7 +5,6 @@ import AuthService from '../services/auth.service'
 class AuthController {
     static async signup(req: Request, res: Response, next: NextFunction) {
         try {
-            console.log({ body: req.body })
             const email = req.body?.email || ''
             const password = req.body?.password || ''
             const firstName = req.body?.firstName || ''
@@ -15,7 +14,7 @@ class AuthController {
                 return res.status(400).json({
                     message: 'All fields are required [email, password, firstName, lastName]',
                 })
-            const response = await AuthService.signup({ email, password, firstName,lastName })
+            const response = await AuthService.signup({ email, password, firstName, lastName })
             if (!response) return res.status(400).json({ message: 'Something went wrong' })
 
             logger.log('info', 'user created successfully')

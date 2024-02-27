@@ -11,7 +11,7 @@ const authenticationMiddleware = async (req: CustomRequest, res: Response, next:
     
     try {
         const authorize = req.headers?.authorization || req.headers?.Authorization
-        if (!authorize) throw new CustomError("Unauthorized access: You're Not Middlewared", 401)
+        if (!authorize) throw new CustomError("Unauthorized access: You're Not Authenticated", 401)
 
 
         const [, token] = typeof authorize === "string" ? authorize.split(' ') : []

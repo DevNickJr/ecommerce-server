@@ -12,13 +12,12 @@ const authorize = (roles: Roles[]) => {
 
 const authorizationMiddleware =  async (req: CustomRequest, res: Response, next: NextFunction, roles: Roles[]) => {
     try {
-        if (req.user.role === 'ADMIN') {
+        if (req.user.role === 'ADMIN' || roles.includes(req.user.role)) {
             next()
         }
-        if (!roles.includes(req.user.role)) {
+        else {
             throw new CustomError('Unauthorized access: You are not allowed to access this resource', 400)
         }
-        next()
     } catch (error) {
         next(error)
     }
