@@ -41,7 +41,7 @@ class UserController {
             const response = await UserService.update(Number(id), data)
             if (!response) return res.status(400).json({ message: 'User Does Not Exist' })
 
-            return res.status(200).json(response)
+            return res.status(200).json({ id, message: "update was successful"})
         } catch (error) {
             return next(error)
         }

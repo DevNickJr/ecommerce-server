@@ -3,6 +3,24 @@ import logger from '../utils/logger'
 import CategoryService from "../services/category.service"
 
 class CategoryController {
+    static async createCategory(req: Request, res: Response, next: NextFunction) {
+        try {
+            const title = req.body?.title || ''
+    
+            if (!title)
+                return res.status(400).json({
+                    message: 'Title is required',
+                })
+            const response = await CategoryService.create({ title })
+            if (!response) return res.status(400).json({ message: 'Something went wrong' })
+
+            logger.log('info', 'Category created successfully')
+            return res.status(201).json(response)
+        } catch (error) {
+            console.log({error})
+            return next(error)
+        }
+    }
     static async getAllCategories(req: Request, res: Response, next: NextFunction) {
         try {
             logger.log('info', 'Getting all Categories')
@@ -41,7 +59,7 @@ class CategoryController {
             const response = await CategoryService.updateOne({ id }, data)
             if (!response) return res.status(400).json({ message: 'Category Does Not Exist' })
 
-            return res.status(200).json(response)
+            return res.status(200).json({ id, message: "update was successful"})
         } catch (error) {
             return next(error)
         }

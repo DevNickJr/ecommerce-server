@@ -70,7 +70,8 @@ class CRUD<T extends Model> {
       // const whereCondition: { [key: string]: any } = {};
       // whereCondition["id"] = id;
       const data = await this.model.update(body, {
-          where
+          where,
+          // returning: true,
         });
       if (!data) throw new Error(`${this.serviceName} does not exist`)
       return data

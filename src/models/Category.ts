@@ -14,7 +14,7 @@ Category.init({
   title: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true
+    unique: true,
   },
 }, {
   sequelize, // We need to pass the connection instance
