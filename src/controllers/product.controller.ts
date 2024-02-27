@@ -38,7 +38,7 @@ class ProductController {
         logger.log('info', `Updating Product ${id}`)
 
         try {
-            const response = await ProductService.updateOne(id, data)
+            const response = await ProductService.updateOne({ id }, data)
             if (!response) return res.status(400).json({ message: 'Product Does Not Exist' })
 
             return res.status(200).json(response)
@@ -53,7 +53,7 @@ class ProductController {
 
         logger.log('info', `Deleting Product ${id}`)
         try {
-            const response = await ProductService.deleteOne(id)
+            const response = await ProductService.deleteOne({ id })
             if (!response) return res.status(404).json({ message: 'Product Does Not Exist' })
 
             return res.status(200).json(response)

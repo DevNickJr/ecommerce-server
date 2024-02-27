@@ -64,27 +64,19 @@ class CRUD<T extends Model> {
         return data
     }
 
-    async updateOne(id: string, body: any) {
-      const whereCondition: { [key: string]: any } = {};
-      whereCondition["id"] = id;
-      
+    async updateOne(where: WhereOptions<Attributes<T>>, body: any) {
+      // const whereCondition: { [key: string]: any } = {};
+      // whereCondition["id"] = id;
       const data = await this.model.update(body, {
-          where: {
-            whereCondition
-          }
+          where
         });
       if (!data) throw new Error(`${this.serviceName} does not exist`)
       return data
     }
 
-    async deleteOne(id: string) {
-      const whereCondition: { [key: string]: any } = {};
-      whereCondition["id"] = id;
-
+    async deleteOne(where: WhereOptions<Attributes<T>>) {
         const data = await this.model.destroy({
-            where: {
-              whereCondition
-            }
+            where
         })
         if (!data) throw new Error(`${this.serviceName} does not exist`)
         return data

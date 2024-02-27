@@ -38,7 +38,7 @@ class OrderController {
         logger.log('info', `Updating Order ${id}`)
 
         try {
-            const response = await OrderService.updateOne(id, data)
+            const response = await OrderService.updateOne({ id }, data)
             if (!response) return res.status(400).json({ message: 'Order Does Not Exist' })
 
             return res.status(200).json(response)
@@ -53,7 +53,7 @@ class OrderController {
 
         logger.log('info', `Deleting Order ${id}`)
         try {
-            const response = await OrderService.deleteOne(id)
+            const response = await OrderService.deleteOne({ id })
             if (!response) return res.status(404).json({ message: 'Order Does Not Exist' })
 
             return res.status(200).json(response)

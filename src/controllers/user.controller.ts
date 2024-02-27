@@ -38,7 +38,7 @@ class UserController {
         logger.log('info', `Updating user ${id}`)
 
         try {
-            const response = await UserService.updateOne(id, data)
+            const response = await UserService.update(Number(id), data)
             if (!response) return res.status(400).json({ message: 'User Does Not Exist' })
 
             return res.status(200).json(response)
@@ -53,7 +53,7 @@ class UserController {
 
         logger.log('info', `Deleting user ${id}`)
         try {
-            const response = await UserService.deleteOne(id)
+            const response = await UserService.deleteOne({ id })
             if (!response) return res.status(404).json({ message: 'User Does Not Exist' })
 
             return res.status(200).json(response)

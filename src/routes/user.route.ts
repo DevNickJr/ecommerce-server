@@ -1,25 +1,20 @@
-import { NextFunction, Router, Response, Request } from "express"
+import { Router } from 'express';
 import UserController from '../controllers/user.controller'
 import authenticate from '../middlewares/authenticate.middleware'
-import { CustomRequest } from "../interfaces";
 import isCurrentUser from "../middlewares/is-current-user.middleware";
+import authorize from "../middlewares/authorize.middleware";
 
 const router = Router()
 
-// router.use(authenticate)
-router.use((req: Request, res: Response, next: NextFunction) => {
-    return authenticate(req as CustomRequest, res, next);
-});
+// authentication middleware
+router.use(authenticate);
 
-router.get('/', UserController.getAllUsers)
-
-// router.get('/find', UserController.findUser)
+router.get('/', authorize(["ADMIN"]), UserController.getAllUsers)
 
 router.get('/:id', UserController.getUser)
 
-router.use((req: Request, res: Response, next: NextFunction) => {
-    return isCurrentUser(req as CustomRequest, res, next);
-});
+// middleware to confirm current user
+router.param("id", isCurrentUser)
 
 router.patch('/:id', UserController.updateUser)
 
@@ -27,3 +22,4 @@ router.delete('/:id', UserController.deleteUser)
 
 
 export default router
+// router.get('/find', UserController.findUser)

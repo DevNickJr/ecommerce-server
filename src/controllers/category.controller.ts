@@ -38,7 +38,7 @@ class CategoryController {
         logger.log('info', `Updating Category ${id}`)
 
         try {
-            const response = await CategoryService.updateOne(id, data)
+            const response = await CategoryService.updateOne({ id }, data)
             if (!response) return res.status(400).json({ message: 'Category Does Not Exist' })
 
             return res.status(200).json(response)
@@ -53,7 +53,7 @@ class CategoryController {
 
         logger.log('info', `Deleting Category ${id}`)
         try {
-            const response = await CategoryService.deleteOne(id)
+            const response = await CategoryService.deleteOne({ id })
             if (!response) return res.status(404).json({ message: 'Category Does Not Exist' })
 
             return res.status(200).json(response)

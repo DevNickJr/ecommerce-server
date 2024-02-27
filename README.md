@@ -2,7 +2,7 @@
 
 ### Tasks
   
-[] - Test available API's  
+[-] - Test available API's  
 [] - Write missing API's  
 [] - Implement Caching (Redis)  
 [] - Performance Optimisation (Throttling, Rate Limiting, DB indexing and constraints etc)  
