@@ -52,8 +52,10 @@ class CRUD<T extends Model> {
         };
     }
 
-    async getOne(query: any) {
-        const data = await this.model.findOne(query)
+    async getOne(query: WhereOptions<Attributes<T>>) {
+        const data = await this.model.findOne({
+          where: query
+        })
         if (!data) throw new Error(`${this.serviceName} does not exist`)
         return data
     }
