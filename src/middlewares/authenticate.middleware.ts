@@ -7,11 +7,11 @@ import { CustomRequest } from '../interfaces'
 const JWT_SEC = process.env.JWT_SEC
 
 
-const authenticate = async (req: CustomRequest, res: Response, next: NextFunction) => {
+const authenticationMiddleware = async (req: CustomRequest, res: Response, next: NextFunction) => {
     
     try {
         const authorize = req.headers?.authorization || req.headers?.Authorization
-        if (!authorize) throw new CustomError("Unauthorized access: You're Not Authenticated", 401)
+        if (!authorize) throw new CustomError("Unauthorized access: You're Not Middlewared", 401)
 
 
         const [, token] = typeof authorize === "string" ? authorize.split(' ') : []
@@ -37,5 +37,10 @@ const authenticate = async (req: CustomRequest, res: Response, next: NextFunctio
         next(error)
     }
 }
+
+const authenticate = (req: Request, res: Response, next: NextFunction) => {
+    return authenticationMiddleware(req as CustomRequest, res, next);
+} 
+
 
 export default authenticate
