@@ -1,4 +1,3 @@
-import { IUser } from '../interfaces'
 import { User } from '../models/User'
 import createToken from '../utils/createToken'
 import CustomError from '../utils/customError'
@@ -7,7 +6,7 @@ import CRUD from './crud'
 import bcrypt from "bcrypt"
 
 class AuthService extends CRUD<User> {
-    static async signup(fields: IUser) {
+    static async signup(fields: Pick<User, 'email' | 'password' | 'firstName' | 'lastName'>) {
 
         // if (!validator.isStrongPassword(password))
         //     throw new CustomError(
@@ -21,12 +20,12 @@ class AuthService extends CRUD<User> {
         const newUser = (await User.create({ ...fields, password: hash })).toJSON()
         if (!newUser) throw new CustomError('Failed to create User', 400)
 
-        const token = await createToken({ id: newUser.id!, role: newUser.role! })
+        const token = await createToken({ id: newUser.id, role: newUser.role! })
 
         return { user: newUser, token }
     }
 
-    static async signin(fields: Pick<IUser, "password" | "email">) {
+    static async signin(fields: Pick<User, "password" | "email">) {
         const response = await User.findOne({ where: { email: fields.email }})
         if (!response) throw new CustomError('User does not exists', 404)
 

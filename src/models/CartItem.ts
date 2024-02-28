@@ -1,10 +1,19 @@
-import {  DataTypes, Model } from 'sequelize';
+import {  CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 import { sequelize } from "../utils/db"
 import { User } from './User';
 import { Product } from './Product';
-import { Compulsory, ICartItem } from '../interfaces';
+// import { Compulsory, ICartItem } from '../interfaces';
 
-class CartItem extends Model<Compulsory<ICartItem>, ICartItem> {}
+// class CartItem extends Model<Compulsory<ICartItem>, ICartItem> {}
+
+class CartItem extends Model<InferAttributes<CartItem>, InferCreationAttributes<CartItem>> {
+  // 'CreationOptional' is a special type that marks the field as optional
+  // when creating an instance of the model (such as using Model.create()).
+  declare id: CreationOptional<number>;
+  declare UserId: number;
+  declare ProductId: number;
+  declare quantity: number;
+}
 
 CartItem.init({
   // Model attributes are defined here

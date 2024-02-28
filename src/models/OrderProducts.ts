@@ -1,10 +1,20 @@
-import {  DataTypes, Model } from 'sequelize';
+import {  CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 import { sequelize } from "../utils/db"
 import { Product } from './Product';
-import { Compulsory, IOrder, IOrderProduct } from '../interfaces';
+import { Compulsory } from '../interfaces';
 import { Order } from './Order';
 
-class OrderProducts extends Model<Compulsory<IOrderProduct>, IOrderProduct> {}
+// class OrderProducts extends Model<Compulsory<IOrderProduct>, IOrderProduct> {}
+
+class OrderProducts extends Model<InferAttributes<OrderProducts>, InferCreationAttributes<OrderProducts>> {
+  // 'CreationOptional' is a special type that marks the field as optional
+  // when creating an instance of the model (such as using Model.create()).
+  declare id: CreationOptional<number>;
+  declare OrderId: number;
+  declare ProductId: number;
+  declare quantity: number;
+  declare price: number;
+}
 
 OrderProducts.init({
   // Model attributes are defined here
