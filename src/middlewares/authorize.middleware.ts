@@ -16,7 +16,7 @@ const authorizationMiddleware =  async (req: CustomRequest, res: Response, next:
             next()
         }
         else {
-            throw new CustomError('Unauthorized access: You are not allowed to access this resource', 400)
+            throw new CustomError('Forbidden Resource: You are not allowed to access this resource', 403)
         }
     } catch (error) {
         next(error)

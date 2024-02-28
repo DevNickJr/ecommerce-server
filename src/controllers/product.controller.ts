@@ -3,6 +3,27 @@ import logger from '../utils/logger'
 import ProductService from "../services/product.service"
 
 class ProductController {
+    static async createProduct(req: Request, res: Response, next: NextFunction) {
+        try {
+            const title = req.body?.title
+            const price = req.body?.price
+            const description = req.body?.description
+            const categories = req.body?.categories
+            
+            if (!description || !title || !price)
+                return res.status(400).json({
+                    message: 'All fields are required [title, price, description]',
+                })
+            const response = await ProductService.createProduct({ title, description, price }, categories)
+            if (!response) return res.status(400).json({ message: 'Something went wrong' })
+
+            logger.log('info', 'Product created successfully')
+            return res.status(201).json(response)
+        } catch (error) {
+            console.log({error})
+            return next(error)
+        }
+    }
     static async getAllProducts(req: Request, res: Response, next: NextFunction) {
         try {
             logger.log('info', 'Getting all Products')
@@ -20,7 +41,7 @@ class ProductController {
 
         logger.log('info', `Getting Product ${id}`)
         try {
-            const response = await ProductService.getByPK(id)
+            const response = await ProductService.getByPK(Number(id))
             if (!response) return res.status(404).json({ message: 'Product Not Found' })
 
             return res.status(200).json(response)
@@ -41,7 +62,7 @@ class ProductController {
             const response = await ProductService.updateOne({ id }, data)
             if (!response) return res.status(400).json({ message: 'Product Does Not Exist' })
 
-            return res.status(200).json(response)
+            return res.status(200).json({ id, message: "update was successful"})
         } catch (error) {
             return next(error)
         }

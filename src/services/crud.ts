@@ -1,5 +1,6 @@
 import { Attributes, Model, ModelCtor, Optional, Order, WhereOptions } from "sequelize";
 import { MakeNullishOptional } from "sequelize/types/utils";
+import CustomError from "../utils/customError";
 
 class CRUD<T extends Model> {
     public model: ModelCtor<T>
@@ -56,13 +57,13 @@ class CRUD<T extends Model> {
         const data = await this.model.findOne({
           where: query
         })
-        if (!data) throw new Error(`${this.serviceName} does not exist`)
+        if (!data) throw new CustomError(`${this.serviceName} does not exist`, 404)
         return data
     }
     
-    async getByPK(id: string) {
+    async getByPK(id: number) {
         const data = await this.model.findByPk(id)
-        if (!data) throw new Error(`${this.serviceName} does not exist`)
+        if (!data) throw new CustomError(`${this.serviceName} does not exist`, 404)
         return data
     }
 
@@ -73,7 +74,7 @@ class CRUD<T extends Model> {
           where,
           // returning: true,
         });
-      if (!data) throw new Error(`${this.serviceName} does not exist`)
+      if (!data) throw new CustomError(`${this.serviceName} does not exist`, 404)
       return data
     }
 
@@ -81,7 +82,7 @@ class CRUD<T extends Model> {
         const data = await this.model.destroy({
             where
         })
-        if (!data) throw new Error(`${this.serviceName} does not exist`)
+        if (!data) throw new CustomError(`${this.serviceName} does not exist`, 404)
         return data
     }
 }

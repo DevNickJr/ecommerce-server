@@ -24,7 +24,8 @@ export interface ICategory {
 export interface IOrder {
     // Some fields are optional when calling UserModel.create() or UserModel.build()
     id?: number
-    status: string
+    UserId: number
+    status?: string
 }
 
 export interface IOrderProduct {
