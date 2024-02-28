@@ -16,7 +16,7 @@ router.get('/find', authorize(["ADMIN"]), UserController.findUser)
 // middleware to confirm current user
 router.param("id", isCurrentUser)
 
-router.get('/:id', authorize(["ADMIN"]), UserController.getUser)
+router.get('/:id', UserController.getUser)
 
 router.patch('/:id', UserController.updateUser)
 

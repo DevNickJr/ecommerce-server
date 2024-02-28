@@ -1,8 +1,30 @@
 import { NextFunction, Request, Response } from "express"
 import logger from '../utils/logger'
 import OrderService from "../services/order.service"
+import { CustomRequest } from "../interfaces"
 
 class OrderController {
+    static async createOrder(req: CustomRequest, res: Response, next: NextFunction) {
+        try {
+            const UserId = req.user.id
+            const title = req.body?.title
+            const price = req.body?.price
+            const description = req.body?.description
+            
+            if (!description || !title || !price)
+                return res.status(400).json({
+                    message: 'All fields are required [title, price, description]',
+                })
+            const response = await OrderService.create({ UserId })
+            if (!response) return res.status(400).json({ message: 'Something went wrong' })
+
+            logger.log('info', 'Product created successfully')
+            return res.status(201).json(response)
+        } catch (error) {
+            console.log({error})
+            return next(error)
+        }
+    }
     static async getAllOrders(req: Request, res: Response, next: NextFunction) {
         try {
             logger.log('info', 'Getting all Orders')
@@ -20,7 +42,7 @@ class OrderController {
 
         logger.log('info', `Getting Order ${id}`)
         try {
-            const response = await OrderService.getByPK(id)
+            const response = await OrderService.getByPK(Number(id))
             if (!response) return res.status(404).json({ message: 'Order Not Found' })
 
             return res.status(200).json(response)

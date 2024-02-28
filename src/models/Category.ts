@@ -21,6 +21,7 @@ Category.init({
   modelName: 'Category' // We need to choose the model name
 })
 
+
 // `sequelize.define` also returns the model
 console.log("For Category: ", Category === sequelize.models.Category); // true
 

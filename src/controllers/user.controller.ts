@@ -20,7 +20,7 @@ class UserController {
 
         logger.log('info', `Getting user ${id}`)
         try {
-            const response = await UserService.getByPK(id)
+            const response = await UserService.getByPK(Number(id))
             if (!response) return res.status(404).json({ message: 'User Not Found' })
 
             return res.status(200).json(response)

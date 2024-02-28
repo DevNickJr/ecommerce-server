@@ -7,6 +7,7 @@ import { CartItem } from "./CartItem";
 import { OrderProducts } from "./OrderProducts";
 
 
+
 const syncDB = async () => {
     try {  
         User.hasMany(Order, {
@@ -19,6 +20,7 @@ const syncDB = async () => {
 
         Category.belongsToMany(Product, { through: 'ProductCategories' });
         Product.belongsToMany(Category, { through: 'ProductCategories' });
+        
 
 
         Product.belongsToMany(User, { through: CartItem });
@@ -26,6 +28,7 @@ const syncDB = async () => {
 
         Product.belongsToMany(Order, { through: OrderProducts });
         Order.belongsToMany(Product, { through: OrderProducts });
+        
 
         await sequelize.sync();
         // await sequelize.sync({ alter: true });

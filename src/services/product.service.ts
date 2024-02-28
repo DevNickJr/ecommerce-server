@@ -13,7 +13,7 @@ class ProductService extends CRUD<Product> {
             [Op.in]: categories
         }}});
 
-        await data.addCategories(catgs);
+        // await data.addCategories(catgs);
         // const data = await this.model.create(fields);
         return data;
     }

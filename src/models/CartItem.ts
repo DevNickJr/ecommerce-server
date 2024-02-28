@@ -15,6 +15,7 @@ CartItem.init({
   },
   UserId: {
     type: DataTypes.INTEGER,
+    allowNull: false,
     references: {
       model: User, // 'Users' would also work
       key: 'id'
@@ -22,6 +23,7 @@ CartItem.init({
   },
   ProductId: {
     type: DataTypes.INTEGER,
+    allowNull: false,
     references: {
       model: Product, // 'Products' would also work
       key: 'id'
@@ -29,10 +31,17 @@ CartItem.init({
   },
   quantity: {
     type: DataTypes.INTEGER,
+    allowNull: false,
   },
 }, {
   sequelize, // We need to pass the connection instance
-  modelName: 'CartItem' // We need to choose the model name
+  modelName: 'CartItem', // We need to choose the model name
+  // indexes: [
+  //   {
+  //     unique: true,
+  //     fields: ['userID', 'itemNr'], // Specify the fields for the composite unique constraint
+  //   },
+  // ],
 })
 
 
