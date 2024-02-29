@@ -1,4 +1,4 @@
-import {  CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model, Optional } from 'sequelize';
+import {  CreationOptional, DataTypes, HasManyAddAssociationMixin, HasManyAddAssociationsMixin, HasManyCountAssociationsMixin, HasManyCreateAssociationMixin, HasManyGetAssociationsMixin, HasManyHasAssociationMixin, HasManyHasAssociationsMixin, HasManyRemoveAssociationMixin, HasManyRemoveAssociationsMixin, HasManySetAssociationsMixin, InferAttributes, InferCreationAttributes, Model, Optional } from 'sequelize';
 import { sequelize } from "../utils/db"
 import { Order } from './Order';
 import { Compulsory, Roles } from '../interfaces';
@@ -24,6 +24,21 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare firstName: string;
   declare lastName: string;
   declare role: CreationOptional<Roles>;
+
+  // Since TS cannot determine model association at compile time
+  // we have to declare them here purely virtually
+  // these will not exist until `Model.init` was called.
+  declare getOrders: HasManyGetAssociationsMixin<Order>; // Note the null assertions!
+  declare addOrder: HasManyAddAssociationMixin<Order, number>;
+  declare addOrders: HasManyAddAssociationsMixin<Order, number>;
+  declare setOrders: HasManySetAssociationsMixin<Order, number>;
+  declare removeOrder: HasManyRemoveAssociationMixin<Order, number>;
+  declare removeOrders: HasManyRemoveAssociationsMixin<Order, number>;
+  declare hasOrder: HasManyHasAssociationMixin<Order, number>;
+  declare hasOrders: HasManyHasAssociationsMixin<Order, number>;
+  declare countOrders: HasManyCountAssociationsMixin;
+  declare createOrder: HasManyCreateAssociationMixin<Order, 'id'>;
+
 }
 
 
