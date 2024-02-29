@@ -1,19 +1,18 @@
-import { Attributes, Model, ModelCtor, Optional, Order, WhereOptions } from "sequelize";
-import { MakeNullishOptional } from "sequelize/types/utils";
+import { Attributes, CreationAttributes, FindOptions, InferAttributes, Model, ModelCtor, ModelStatic, Optional, Order, WhereOptions } from "sequelize";
 import CustomError from "../utils/customError";
 
 class CRUD<T extends Model> {
-    public model: ModelCtor<T>
+    public model: ModelStatic<T>
     public serviceName: string;
 
     
-    constructor(model: ModelCtor<T>, serviceName: string) {
+    constructor(model: ModelStatic<T>, serviceName: string) {
         this.model = model
         this.serviceName = serviceName
     }
     
 
-    async create(fields: MakeNullishOptional<T["_creationAttributes"]>): Promise<T> {
+    async create(fields: CreationAttributes<T>): Promise<T> {
         const data = await this.model.create(fields);
         // const data = await this.model.create(fields);
         return data;
@@ -61,8 +60,8 @@ class CRUD<T extends Model> {
         return data
     }
     
-    async getByPK(id: number) {
-        const data = await this.model.findByPk(id)
+    async getByPK(id: number, options?:  Omit<FindOptions<InferAttributes<T, { omit: never; }>>, "where"> | undefined) {
+        const data = await this.model.findByPk(id, options)
         if (!data) throw new CustomError(`${this.serviceName} does not exist`, 404)
         return data
     }

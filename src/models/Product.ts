@@ -1,6 +1,7 @@
-import {  CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
+import {  BelongsToManyAddAssociationMixin, BelongsToManyAddAssociationsMixin, BelongsToManyCountAssociationsMixin, BelongsToManyCreateAssociationMixin, BelongsToManyGetAssociationsMixin, BelongsToManyHasAssociationMixin, BelongsToManyHasAssociationsMixin, BelongsToManyRemoveAssociationMixin, BelongsToManyRemoveAssociationsMixin, BelongsToManySetAssociationsMixin, CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 import { sequelize } from "../utils/db"
 import { Compulsory } from '../interfaces';
+import { Category } from './Category';
 
 
 // class Product extends Model<Compulsory<IProduct>, IProduct> {}
@@ -12,6 +13,23 @@ class Product extends Model<InferAttributes<Product>, InferCreationAttributes<Pr
   declare title: string;
   declare price: number;
   declare description: string;
+
+  
+  // Since TS cannot determine model association at compile time
+  // we have to declare them here purely virtually
+  // these will not exist until `Model.init` was called.
+  declare getCategories: BelongsToManyGetAssociationsMixin<Category>; // Note the null assertions!
+  declare addCategory: BelongsToManyAddAssociationMixin<Category, number>;
+  declare addCategories: BelongsToManyAddAssociationsMixin<Category, number>;
+  declare setCategories: BelongsToManySetAssociationsMixin<Category, number>;
+  declare removeCategory: BelongsToManyRemoveAssociationMixin<Category, number>;
+  declare removeCategories: BelongsToManyRemoveAssociationsMixin<Category, number>;
+  declare hasCategory: BelongsToManyHasAssociationMixin<Category, number>;
+  declare hasCategories: BelongsToManyHasAssociationsMixin<Category, number>;
+  declare countCategories: BelongsToManyCountAssociationsMixin;
+  declare createCategory: BelongsToManyCreateAssociationMixin<Category>;
+
+  
 }
 
 Product.init({

@@ -24,5 +24,7 @@ router.patch('/:id',  authorize(["ADMIN"]), ProductController.updateProduct)
 
 router.delete('/:id',  authorize(["ADMIN"]), ProductController.deleteProduct)
 
+// add and remove categories from product
+
 
 export default router
