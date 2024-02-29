@@ -10,8 +10,8 @@ class OrderProducts extends Model<InferAttributes<OrderProducts>, InferCreationA
   // 'CreationOptional' is a special type that marks the field as optional
   // when creating an instance of the model (such as using Model.create()).
   declare id: CreationOptional<number>;
-  declare OrderId: number;
-  declare ProductId: number;
+  declare orderId: number;
+  declare productId: number;
   declare quantity: number;
   declare price: number;
 }
@@ -23,20 +23,20 @@ OrderProducts.init({
     autoIncrement: true,
     primaryKey: true
 },
-OrderId: {
-  type: DataTypes.INTEGER,
-  references: {
-    model: Order, // 'Users' would also work
-    key: 'id'
-  }
-},
-ProductId: {
-  type: DataTypes.INTEGER,
-  references: {
-    model: Product, // 'Products' would also work
-    key: 'id'
-  }
-},
+  orderId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Order, // 'Users' would also work
+      key: 'id'
+    }
+  },
+  productId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Product, // 'Products' would also work
+      key: 'id'
+    }
+  },
 quantity: {
   type: DataTypes.INTEGER,
 },

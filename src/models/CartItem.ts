@@ -10,8 +10,8 @@ class CartItem extends Model<InferAttributes<CartItem>, InferCreationAttributes<
   // 'CreationOptional' is a special type that marks the field as optional
   // when creating an instance of the model (such as using Model.create()).
   declare id: CreationOptional<number>;
-  declare UserId: number;
-  declare ProductId: number;
+  declare userId: number;
+  declare productId: number;
   declare quantity: number;
 }
 
@@ -22,7 +22,7 @@ CartItem.init({
     autoIncrement: true,
     primaryKey: true
   },
-  UserId: {
+  userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
@@ -30,7 +30,7 @@ CartItem.init({
       key: 'id'
     }
   },
-  ProductId: {
+  productId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {

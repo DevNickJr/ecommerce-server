@@ -7,10 +7,10 @@ import CustomError from "../utils/customError";
 class CartItemService extends CRUD<CartItem> {
     async create(fields: CreationAttributes<CartItem>): Promise<CartItem> {
         // fields.
-        const product = await Product.findByPk(fields.ProductId) 
+        const product = await Product.findByPk(fields.productId) 
         if (!product) throw new CustomError("Product does not exist", 404)
         
-        const productExist = await this.getOne({ ProductId: fields.ProductId }) 
+        const productExist = await this.getOne({ productId: fields.productId }) 
         if (productExist) {
             const num = productExist.quantity + fields.quantity
             const data = await productExist.update({
@@ -35,7 +35,7 @@ class CartItemService extends CRUD<CartItem> {
 
         const cartItem = item.toJSON()
         
-        if (cartItem.UserId !== UserId) {
+        if (cartItem.userId !== UserId) {
             throw new CustomError("You can't perform this action", 403)
         }
         
@@ -50,11 +50,11 @@ class CartItemService extends CRUD<CartItem> {
 
         const cartItem = item.toJSON()
         
-        if (cartItem.UserId !== UserId) {
+        if (cartItem.userId !== UserId) {
             throw new CustomError("You can't perform this action", 403)
         }
         
-        const response = item.destroy({ force: true })
+        const response = item.destroy()
         return response
     }
    

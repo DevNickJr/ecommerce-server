@@ -10,6 +10,7 @@ const cartRoute = (fn: (req: CustomRequest, res: Response<any, Record<string, an
         return fn(req as CustomRequest, res, next);
     }
 } 
+
 // authentication middleware
 router.use(authenticate);
 

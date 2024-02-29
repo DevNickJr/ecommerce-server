@@ -10,7 +10,7 @@ class Order extends Model<InferAttributes<Order>, InferCreationAttributes<Order>
   // 'CreationOptional' is a special type that marks the field as optional
   // when creating an instance of the model (such as using Model.create()).
   declare id: CreationOptional<number>;
-  declare UserId: number;
+  declare userId: number;
   declare status: CreationOptional<string>;
 
   // Since TS cannot determine model association at compile time
@@ -40,7 +40,7 @@ Order.init({
     autoIncrement: true,
     primaryKey: true
   },
-  UserId: {
+  userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {

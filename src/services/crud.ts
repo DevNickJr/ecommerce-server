@@ -18,16 +18,18 @@ class CRUD<T extends Model> {
         return data;
     }
 
-    async getAll<T extends Model<any, any>,>({limit=10, order=[['createdAt', 'DESC']], page=1, query}: { limit?: number, page?: number, order?: Order, query?:  WhereOptions<Attributes<T>> | undefined } = {}) {
+    async getAll({limit=10, order=[['createdAt', 'DESC']], page=1, query, options}: { limit?: number, page?: number, order?: Order, query?:  WhereOptions<Attributes<T>> | undefined, options?: FindOptions<Attributes<T>> | undefined } = {}) {
         // TODO: change pagination to cursor based
         const lmt = limit > 0 && limit <50 ? Number(limit) : 20
         const pge = page || 1
         const skp = Number(pge * lmt -  lmt) || 0
+        this.model.findAll()
         const { count, rows } = await this.model.findAndCountAll({
             where: query,
             offset: skp,
             limit,
-            order: order
+            order: order,
+            ...options
           });
         // const data = await Promise.all([
         //     this.model(query).order(srt).skip(skp).limit(lmt).populate(populate),

@@ -16,7 +16,7 @@ class CartController {
                 return res.status(400).json({
                     message: 'All fields are required [ProductId, quantity]',
                 })
-            const response = await CartService.create({ UserId: Number(UserId), ProductId: Number(ProductId), quantity: Number(quantity) })
+            const response = await CartService.create({ userId: Number(UserId), productId: Number(ProductId), quantity: Number(quantity) })
             if (!response) return res.status(400).json({ message: 'Something went wrong' })
 
             logger.log('info', 'Category created successfully')
@@ -30,7 +30,7 @@ class CartController {
         try {
             const UserId = req.user.id
             logger.log('info', 'Getting all Cart Items')
-            const response = await CartService.getAll({ query: { UserId } })
+            const response = await CartService.getAll({ query: { userId: UserId } })
             if (!response) return res.status(404).json({ message: 'No Item found' })
             return res.status(200).json(response)
         } catch (error) {
