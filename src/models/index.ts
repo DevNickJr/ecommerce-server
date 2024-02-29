@@ -22,7 +22,6 @@ const syncDB = async () => {
         Product.belongsToMany(Category, { through: 'ProductCategories' });
         
 
-
         Product.belongsToMany(User, { through: CartItem });
         User.belongsToMany(Product, { through: CartItem });
 

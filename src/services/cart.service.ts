@@ -1,10 +1,32 @@
-import { Attributes, WhereOptions } from "sequelize";
-import { CartItem } from "../models"
+import { Attributes, CreationAttributes, WhereOptions } from "sequelize";
+import { CartItem, Product } from "../models"
 import CRUD from "./crud"
 import CustomError from "../utils/customError";
 
 
 class CartItemService extends CRUD<CartItem> {
+    async create(fields: CreationAttributes<CartItem>): Promise<CartItem> {
+        // fields.
+        const product = await Product.findByPk(fields.ProductId) 
+        if (!product) throw new CustomError("Product does not exist", 404)
+        
+        const productExist = await this.getOne({ ProductId: fields.ProductId }) 
+        if (productExist) {
+            const num = productExist.quantity + fields.quantity
+            const data = await productExist.update({
+                quantity: num > 0 ? num : 1,
+            });
+            // const data = await this.model.create(fields);
+            return data;
+            
+        }
+
+        const data = await this.model.create(fields);
+        // const data = await this.model.create(fields);
+        return data;
+
+    }
+    
     async updateItem(id: number, UserId: number, data: any) {
 
         const item = await this.getByPK(id)

@@ -9,10 +9,12 @@ class CartController {
             const UserId = req.user.id
             const ProductId = req.body?.ProductId
             const quantity = req.body?.quantity
+
+            console.log({ UserId, ProductId, quantity })
             
             if (!UserId || !ProductId || !quantity)
                 return res.status(400).json({
-                    message: 'All fields are required [UserId, ProductId, quantity]',
+                    message: 'All fields are required [ProductId, quantity]',
                 })
             const response = await CartService.create({ UserId: Number(UserId), ProductId: Number(ProductId), quantity: Number(quantity) })
             if (!response) return res.status(400).json({ message: 'Something went wrong' })
