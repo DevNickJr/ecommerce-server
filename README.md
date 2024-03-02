@@ -2,9 +2,9 @@
 
 ### Tasks
   
-[-] - Test available API's  
+[*] - Test available API's  
 [-] - Validation error message to show actual sql query issue
-[] - Write missing API's  
+[-] - Write missing API's  
 [] - Implement Caching (Redis)  
 [] - Migrations 
 [] - Performance Optimisation (Throttling, Rate Limiting, DB indexing and constraints etc)  
