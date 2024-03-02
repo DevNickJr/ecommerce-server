@@ -24,6 +24,63 @@ class ProductController {
             return next(error)
         }
     }
+    static async addCategories(req: Request, res: Response, next: NextFunction) {
+        try {
+            const categories = req.body?.categories
+            const id = req.params?.id
+            
+            if (!categories)
+                return res.status(400).json({
+                    message: 'Provide an arrar of categories',
+                })
+            const response = await ProductService.addCategories(Number(id), categories)
+            if (!response) return res.status(400).json({ message: 'Something went wrong' })
+
+            logger.log('info', 'Categories added successfully')
+            return res.status(201).json({
+                message: `Categories added successfully [${categories}]`
+            })
+        } catch (error) {
+            console.log({error})
+            return next(error)
+        }
+    }
+    static async removeCategories(req: Request, res: Response, next: NextFunction) {
+        try {
+            const categories = req.body?.categories
+            const id = req.params?.id
+            
+            if (!categories)
+                return res.status(400).json({
+                    message: 'Provide an arrar of categories',
+                })
+            const response = await ProductService.removeCategories(Number(id), categories)
+            if (!response) return res.status(400).json({ message: 'Something went wrong' })
+
+            logger.log('info', 'Categories added successfully')
+            return res.status(201).json({
+                message: `Categories removed successfully [${categories}]`
+            })
+        } catch (error) {
+            console.log({error})
+            return next(error)
+        }
+    }
+    static async getCategories(req: Request, res: Response, next: NextFunction) {
+        try {
+            const id = req.params?.id
+            
+        
+            const response = await ProductService.getCategories(Number(id))
+            if (!response) return res.status(400).json({ message: 'Something went wrong' })
+
+            logger.log('info', 'getting product categories')
+            return res.status(201).json(response)
+        } catch (error) {
+            console.log({error})
+            return next(error)
+        }
+    }
     static async getAllProducts(req: Request, res: Response, next: NextFunction) {
         try {
             logger.log('info', 'Getting all Products')

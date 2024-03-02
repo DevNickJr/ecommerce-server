@@ -26,5 +26,9 @@ router.delete('/:id',  authorize(["ADMIN"]), ProductController.deleteProduct)
 
 // add and remove categories from product
 
+router.post('/:id/categories',  authorize(["ADMIN"]), ProductController.addCategories)
+router.get('/:id/categories',  authorize(["ADMIN"]), ProductController.getCategories)
+router.delete('/:id/categories',  authorize(["ADMIN"]), ProductController.removeCategories)
+
 
 export default router

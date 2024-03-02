@@ -3,9 +3,9 @@
 ### Tasks
   
 [*] - Test available API's  
-[-] - Validation error message to show actual sql query issue
-[-] - Write missing API's  
-[] - Implement Caching (Redis)  
+[*] - Validation error message to show actual sql query issue
+[*] - Write missing API's  
+[-] - Implement Caching (Redis)  
 [] - Migrations 
 [] - Performance Optimisation (Throttling, Rate Limiting, DB indexing and constraints etc)  
 [] - Write Tests (Unit, Integration, End to end - Mocha, Assertionn libraries like Chai, Jest)  
