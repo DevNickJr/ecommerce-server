@@ -1,7 +1,7 @@
 import express, { Express, Request, Response, Application, Router } from "express";
 import dotenv from "dotenv";
 import { connect } from "./utils/db" 
-import { syncDB } from "./models";
+import { syncDB } from "./models/db";
 import routes from './routes'
 import preRouteMiddleWares from "./middlewares/pre-route.middleware";
 import errorMiddleware from "./middlewares/error.middleware";
@@ -21,7 +21,7 @@ const main = async () => {
     });
     
   } catch (error) {
-    console.error('Unable to connect to the database:', error);
+    console.error('Something went wrong while starting server:', error);
   }
 }
 
