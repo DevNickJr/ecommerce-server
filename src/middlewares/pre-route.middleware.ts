@@ -3,7 +3,7 @@ import express from 'express'
 // import morgan from 'morgan'
 import helmet from 'helmet'
 import cors from 'cors'
-import { corsOptions } from '../configs/cors.config'
+import { corsOptions } from '../config/cors.config'
 
 
 const preRouteMiddleWares = (app: Application) => {

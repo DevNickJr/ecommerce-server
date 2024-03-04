@@ -1,7 +1,7 @@
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import { NextFunction, Request, Response } from "express"
 import CustomError from "../utils/customError"
-import { User } from "../models"
+import { User } from "../models/db"
 import { CustomRequest } from '../interfaces'
 
 const JWT_SEC = process.env.JWT_SEC

@@ -20,14 +20,15 @@ CartItem.init({
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
-    primaryKey: true
+    primaryKey: true,
+    allowNull: false
   },
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
       model: User, // 'Users' would also work
-      key: 'id'
+      key: 'id',
     }
   },
   productId: {

@@ -1,4 +1,4 @@
-import { User } from "../models"
+import { User } from "../models/db"
 import CustomError from "../utils/customError"
 import hashPassword from "../utils/hashPassword"
 import CRUD from "./crud"

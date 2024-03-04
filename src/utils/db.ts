@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const username = process.env.DB_USERNAME || '';
+const database = process.env.DB_DATABASE || '';
 const password = process.env.DB_PASSWORD || "";
 const host = process.env.DB_HOST || "";
 const dialect: Dialect = process.env.DB_DIALECT as Dialect || "mysql";
@@ -16,7 +17,7 @@ const dialect: Dialect = process.env.DB_DIALECT as Dialect || "mysql";
 // })
 
 const sequelize = new Sequelize(
-    'hello_world_db',
+  database,
     username,
     password,
      {

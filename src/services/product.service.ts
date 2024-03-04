@@ -1,6 +1,6 @@
 import { CreationAttributes, Op } from "sequelize";
 import { MakeNullishOptional } from "sequelize/types/utils";
-import { Category, Product } from "../models"
+import { Category, Product } from "../models/db"
 
 import CRUD from "./crud"
 import CustomError from "../utils/customError";

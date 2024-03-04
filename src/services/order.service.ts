@@ -1,5 +1,5 @@
 import { CreationAttributes } from "sequelize"
-import { Order, Product } from "../models"
+import { Order, Product } from "../models/db"
 import CustomError from "../utils/customError"
 import CRUD from "./crud"
 import { Op } from "sequelize";

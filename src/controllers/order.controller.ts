@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express"
 import logger from '../utils/logger'
 import OrderService from "../services/order.service"
 import { CustomRequest } from "../interfaces"
-import { Product } from "../models"
+import { Product } from "../models/db"
 
 class OrderController {
     static async createOrder(req: CustomRequest, res: Response, next: NextFunction) {

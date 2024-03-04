@@ -1,5 +1,5 @@
 import { Attributes, CreationAttributes, WhereOptions } from "sequelize";
-import { CartItem, Product } from "../models"
+import { CartItem, Product } from "../models/db"
 import CRUD from "./crud"
 import CustomError from "../utils/customError";
 

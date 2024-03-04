@@ -1,5 +1,5 @@
 import { Request } from "express"
-import { User } from "../models";
+import { User } from "../models/db";
 
 export type Compulsory<T> = {
   [K in keyof T]-?: T[K];

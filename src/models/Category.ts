@@ -32,7 +32,8 @@ Category.init({
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
-    primaryKey: true
+    primaryKey: true,
+    allowNull: false
   },
   title: {
     type: DataTypes.STRING,
