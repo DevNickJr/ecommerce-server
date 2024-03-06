@@ -6,7 +6,7 @@ import { Order } from './Order';
 
 // class OrderProducts extends Model<Compulsory<IOrderProduct>, IOrderProduct> {}
 
-class OrderProducts extends Model<InferAttributes<OrderProducts>, InferCreationAttributes<OrderProducts>> {
+class OrderProduct extends Model<InferAttributes<OrderProduct>, InferCreationAttributes<OrderProduct>> {
   // 'CreationOptional' is a special type that marks the field as optional
   // when creating an instance of the model (such as using Model.create()).
   declare id: CreationOptional<number>;
@@ -16,13 +16,14 @@ class OrderProducts extends Model<InferAttributes<OrderProducts>, InferCreationA
   declare price: number;
 }
 
-OrderProducts.init({
+OrderProduct.init({
   // Model attributes are defined here
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
-    primaryKey: true
-},
+    primaryKey: true,
+    allowNull: false
+  },
   orderId: {
     type: DataTypes.INTEGER,
     references: {
@@ -37,12 +38,12 @@ OrderProducts.init({
       key: 'id'
     }
   },
-quantity: {
-  type: DataTypes.INTEGER,
-},
-price: {
-  type: DataTypes.INTEGER,
-},
+  quantity: {
+    type: DataTypes.INTEGER,
+  },
+  price: {
+    type: DataTypes.INTEGER,
+  },
 }, {
   sequelize, // We need to pass the connection instance
   modelName: 'OrderProducts' // We need to choose the model name
@@ -50,8 +51,8 @@ price: {
 
 
 // `sequelize.define` also returns the model
-console.log("For OrderProducts: ", OrderProducts === sequelize.models.OrderProducts); // true
+console.log("For OrderProducts: ", OrderProduct === sequelize.models.OrderProduct); // true
 
 export {
-    OrderProducts
+    OrderProduct
 }
