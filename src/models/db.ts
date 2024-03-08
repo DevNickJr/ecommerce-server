@@ -4,7 +4,7 @@ import { Category } from "./Category";
 import { Order } from "./Order";
 import { Product } from "./Product";
 import { CartItem } from "./CartItem";
-import { OrderProducts } from "./OrderProducts";
+import { OrderProduct } from "./OrderProduct";
 
 
 
@@ -25,8 +25,8 @@ const syncDB = async () => {
         Product.belongsToMany(User, { through: CartItem });
         User.belongsToMany(Product, { through: CartItem });
 
-        Product.belongsToMany(Order, { through: OrderProducts });
-        Order.belongsToMany(Product, { through: OrderProducts });
+        Product.belongsToMany(Order, { through: OrderProduct });
+        Order.belongsToMany(Product, { through: OrderProduct });
         
 
         // await sequelize.sync();
@@ -49,5 +49,5 @@ export {
     Order,
     Product,
     CartItem,
-    OrderProducts
+    OrderProduct
 }
