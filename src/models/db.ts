@@ -28,7 +28,6 @@ const syncDB = async () => {
         Product.belongsToMany(Order, { through: OrderProduct });
         Order.belongsToMany(Product, { through: OrderProduct });
         
-
         // await sequelize.sync();
         // await sequelize.sync({ alter: true });
         console.log("All models were synchronized successfully.");

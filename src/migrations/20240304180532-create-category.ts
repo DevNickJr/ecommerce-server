@@ -1,4 +1,3 @@
-'use strict';
 import { QueryInterface, DataTypes } from 'sequelize';
 
 /** @type {import('sequelize-cli').Migration} */
