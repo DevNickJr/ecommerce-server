@@ -7,7 +7,7 @@
 [*] - Write missing API's  
 [*] - Migrations  
 [-] - Implement Caching (Redis)  
-[] - Performance Optimisation (Throttling, Rate Limiting, DB indexing and constraints etc)  
+[-] - Performance Optimisation (Throttling, Rate Limiting, DB indexing and constraints etc)  
 [] - Write Tests (Unit, Integration, End to end - Mocha, Assertionn libraries like Chai, Jest)  
 [] - Middleware and Security (Check out ways to improve security e.g., HTTPS, CSRF protection, input validation, etc)  
 [] - Other Authentication strategies (OAuth, JWT-Based Authorization and Role-Based Access Control (RBAC) etc)  
