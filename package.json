@@ -23,6 +23,7 @@
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.9.1",
+    "redis": "^4.6.13",
     "sequelize": "^6.36.0",
     "winston": "^3.11.0"
   },

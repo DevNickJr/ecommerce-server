@@ -5,6 +5,7 @@ import { syncDB } from "./models/db";
 import routes from './routes'
 import preRouteMiddleWares from "./middlewares/pre-route.middleware";
 import errorMiddleware from "./middlewares/error.middleware";
+import { connectRedis } from "./utils/redisConnect";
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ const port = process.env.PORT || 3000;
 const main = async () => {
   try {
     await connect()
+    await connectRedis()
     // await syncDB()
     app.listen(port, () => {
       console.log(`[server]: Server is running at http://localhost:${port}`);

@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express"
 import logger from '../utils/logger'
 import CategoryService from "../services/category.service"
+import { client } from "../utils/redisConnect"
 
 class CategoryController {
     static async createCategory(req: Request, res: Response, next: NextFunction) {
@@ -24,8 +25,21 @@ class CategoryController {
     static async getAllCategories(req: Request, res: Response, next: NextFunction) {
         try {
             logger.log('info', 'Getting all Categories')
+            
+            // check if categories cache in redis exists
+            const value = await client.get('categories');
+            if (value) {
+                logger.log('info', 'Returning categories from cache')
+                return res.status(200).json(JSON.parse(value))
+            }
+            
             const response = await CategoryService.getAll()
             if (!response) return res.status(404).json({ message: 'No Category found' })
+            
+            // cache categories in redis
+            await client.set('categories', JSON.stringify(response));
+            
+            logger.log('info', 'Returning categories')
             return res.status(200).json(response)
         } catch (error) {
             return next(error)
