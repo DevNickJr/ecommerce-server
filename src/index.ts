@@ -1,15 +1,10 @@
-import express, { Express, Request, Response, Application, Router } from "express";
 import dotenv from "dotenv";
 import { connect } from "./utils/db" 
-import { syncDB } from "./models/db";
-import routes from './routes'
-import preRouteMiddleWares from "./middlewares/pre-route.middleware";
-import errorMiddleware from "./middlewares/error.middleware";
 import { connectRedis } from "./utils/redisConnect";
+import app from "./app";
 
 dotenv.config();
 
-const app: Application = express();
 const port = process.env.PORT || 3000;
 
 
@@ -29,13 +24,3 @@ const main = async () => {
 
 
 main()
-
-preRouteMiddleWares(app)
-
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
-});
-
-app.use('/api/v1', routes)
-
-errorMiddleware(app)
