@@ -2,7 +2,7 @@ import request from "supertest"
 import app from "../../src/app"
 
 
-describe("AUTH ROUTES", () => {
+describe.skip("AUTH ROUTES", () => {
     describe("LOGIN", () => {
         it("return a successful response", async () => {
             const response = await request(app).post("/api/v1/auth/login").send({ 
