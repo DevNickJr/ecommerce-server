@@ -4,7 +4,7 @@ import request from "supertest"
 require("dotenv").config();
 
 const reqAddProduct = {
-    "title": "Good Bed",
+    "title": "Good Bed dsk",
     "price": 1100,
     "description": "A new very sweet bread",
     "categories": ["Food"]
