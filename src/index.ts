@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000;
 
 const main = async () => {
   try {
-    // await connect()
+    await connect()
     // // await connectRedis()
     // await runAssociations()
     app.listen(port, () => {

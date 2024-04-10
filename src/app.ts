@@ -3,8 +3,6 @@ import dotenv from "dotenv";
 import routes from './routes'
 import preRouteMiddleWares from "./middlewares/pre-route.middleware";
 import errorMiddleware from "./middlewares/error.middleware";
-import { connect } from "./utils/db" 
-// import { connectRedis } from "./utils/redisConnect";
 import { runAssociations } from "./models/db";
 
 
@@ -25,7 +23,6 @@ errorMiddleware(app)
 
 const setup = async () => {
   try {
-    await connect()
     // await connectRedis()
     await runAssociations()
     
