@@ -2,7 +2,7 @@ import request from "supertest"
 import app from "../../src/app"
 
 
-describe.skip("Controller", () => {
+describe("Controller", () => {
     describe("LOGIN", () => {
         it("return a successful response", async () => {
             const response = await request(app).post("/api/v1/auth/login").send({ 

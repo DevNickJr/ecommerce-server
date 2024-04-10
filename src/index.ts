@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import { connect } from "./utils/db" 
-import { connectRedis } from "./utils/redisConnect";
+// import { connectRedis } from "./utils/redisConnect";
 import app from "./app";
 import { runAssociations } from "./models/db";
 

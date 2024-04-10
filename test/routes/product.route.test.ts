@@ -4,7 +4,7 @@ import request from "supertest"
 require("dotenv").config();
 
 const reqAddProduct = {
-    "title": "Okay n",
+    "title": "Good Bed",
     "price": 1100,
     "description": "A new very sweet bread",
     "categories": ["Food"]
@@ -28,12 +28,7 @@ describe("Test Product Endpoints", () => {
             const response = await request(app)
                 .post("/api/v1/products")
                 .set('Authorization',  `Bearer ${token}`)
-                .send({
-                    "title": "Should run now Works finale lssr bnAwwhjjhhh",
-                    "price": 1100,
-                    "description": "A new very sweet bread",
-                    "categories": ["Food"]
-                })
+                .send(reqAddProduct)
 
                 // console.log({response})
               
