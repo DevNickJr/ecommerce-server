@@ -46,3 +46,12 @@ jobs:
       - run: pnpm install
       - run: pnpm run build
       - run: pnpm run test
+      - run: cp ./config.json.example config.json
+      - run: npm install
+      - run: sudo service mysql start
+      - run: mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword < etc/original.sql
+      - run: mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "SHOW DATABASES"
+      - run: #This command adds the proper mysql port to the config file
+      - run: node scripts/ci ${{ job.services.mysql.ports['3306'] }}
+      - run: npm run setup
+      - run: npm test
