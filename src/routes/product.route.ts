@@ -17,7 +17,7 @@ router.get('/:id', ProductController.getProduct)
 
 router.use(authenticate);
 
-router.post('/', authorize(["ADMIN"]), ProductController.createProduct)
+router.post('/',  ProductController.createProduct)
 
 
 router.patch('/:id',  authorize(["ADMIN"]), ProductController.updateProduct)

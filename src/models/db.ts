@@ -1,4 +1,4 @@
-import { sequelize } from "../utils/db"
+// import { sequelize } from "../utils/db"/
 import { User } from "./User";
 import { Category } from "./Category";
 import { Order } from "./Order";
@@ -8,7 +8,7 @@ import { OrderProduct } from "./OrderProduct";
 
 
 
-const syncDB = async () => {
+const runAssociations = async () => {
     try {  
         User.hasMany(Order, {
             foreignKey: 'userId'
@@ -30,10 +30,10 @@ const syncDB = async () => {
         
         // await sequelize.sync();
         // await sequelize.sync({ alter: true });
-        console.log("All models were synchronized successfully.");
+        console.log("All models Associations were successfully.");
         
     } catch (error) {
-        console.log("Database Synchronization failed: ", error);
+        console.log("Associations Failed: ", error);
     }
 }
 
@@ -42,7 +42,7 @@ const syncDB = async () => {
 
 
 export {
-    syncDB,
+    runAssociations,
     User,
     Category,
     Order,

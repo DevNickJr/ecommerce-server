@@ -1,0 +1,57 @@
+name: Build and Test
+
+on: 
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-and-test:
+
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          DB_USER: root
+          MYSQL_ROOT_PASSWORD: ${{secrets.DB_PASSWORD}}
+          MYSQL_DATABASE: ${{secrets.DB_DATABASE}}
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.x
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'pnpm'
+        env:
+            DATABASE_URL: ${{ secrets.DATABASE_URL }}
+            PORT: ${{ secrets.PORT }}
+            DB_USERNAME: ${{ secrets.DB_USERNAME }}
+            DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+            DB_DIALECT: ${{ secrets.DB_DIALECT }}
+            DB_DATABASE: ${{ secrets.DB_DATABASE }}
+            DB_HOST: ${{ secrets.DB_HOST }}
+            JWT_SEC: ${{ secrets.JWT_SEC }}
+            SALT: ${{ secrets.SALT }}
+      - run: pnpm install
+      - run: pnpm run build
+      - run: pnpm run test
+      - run: cp ./config.json.example config.json
+      - run: npm install
+      - run: sudo service mysql start
+      - run: mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword < etc/original.sql
+      - run: mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "SHOW DATABASES"
+      - run: #This command adds the proper mysql port to the config file
+      - run: node scripts/ci ${{ job.services.mysql.ports['3306'] }}
+      - run: npm run setup
+      - run: npm test

@@ -11,11 +11,10 @@ class ProductService extends CRUD<Product> {
         const data = await this.model.create(fields);
         if (!data) throw new CustomError(`${this.serviceName} does not exist`, 404)
 
-
         const catgs = await Category.findAll({ where: { title: {
             [Op.in]: categories
         }}});
-        
+        console.log({data})
         await data.addCategories(catgs);
         // const data = await this.model.create(fields);
         return data;
