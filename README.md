@@ -13,9 +13,9 @@
 [-] - Set up CI/CD (for tests too, Jenkins)  
 [-] - Containerization and Orchestration (Docker, Kubernetes)  
 [-] - Web Servers (- Apache or Nginx)  
-[ ] - Payment Gateway  
-[ ] - API Documentation
-[ ] - Other Authentication strategies (OAuth, JWT-Based Authorization and Role-Based Access Control (RBAC) etc)  
+[*] - Payment Gateway  
+[-] - API Documentation
+[-] - Other Authentication strategies (OAuth, JWT-Based Authorization and Role-Based Access Control (RBAC) etc)  
     
     
 ### Just for Learning purposes
@@ -29,7 +29,7 @@
 [] - Blockchain and Decentralized Applications (DApps) - Build a decentralized application on a blockchain platform (e.g., Ethereum, Implement smart contracts for specific functionalities, Use a blockchain network for decentralized data storage).
 [] - Event Based Programming
 [] - Linux
-
+[] - Portfolio
 
 # Notes
 
